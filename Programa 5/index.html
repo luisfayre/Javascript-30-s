@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Flex Panels 💪</title>
+  <link href='https://fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <style>
+    html {
+      box-sizing: border-box;
+      background: #ffc600;
+      font-family: 'helvetica neue';
+      font-size: 20px;
+      font-weight: 200;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    .panels {
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .panel {
+      background: #6B0F9C;
+      box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
+      color: white;
+      text-align: center;
+      align-items: center;
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
+      transition:
+        font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+        flex 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
+        background 0.2s;
+      font-size: 20px;
+      background-size: cover;
+      background-position: center;
+      flex: 1;
+      /* Espacio extra */
+      flex-direction: column;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .panel1 {
+      background-image: url(http://s3.amazonaws.com/digitaltrends-uploads-prod/2014/06/McLaren-P1-drifting.jpg);
+    }
+
+    .panel2 {
+      background-image: url(http://www.chevrolet.com/content/dam/chevrolet/na/us/english/index/vehicles/2018/performance/corvette-z06/mov/01-images/2018-corvette-z06-safety-01.jpg?imwidth=1200);
+    }
+
+    .panel3 {
+      background-image: url(https://res.cloudinary.com/carsguide/image/upload/f_auto,fl_lossy,q_auto,t_cg_hero_large/v1/editorial/Jaguar-F-type-Coupe-4.jpg);
+    }
+
+    .panel4 {
+      background-image: url(http://st.motortrend.com/uploads/sites/10/2015/09/2017-Audi-R8-V10-Plus-front-three-quarter-in-motion-02.jpg);
+    }
+
+    .panel5 {
+      background-image: url(http://s1.ibtimes.com/sites/www.ibtimes.com/files/styles/embed/public/2017/03/07/2018-porsche-gt3-5.jpg);
+    }
+
+    .panel>* {
+      margin: 0;
+      width: 100%;
+      transition: transform 0.5s;
+      flex: 1 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+
+    .panel>*:first-child {
+      transform: translateY(-100%);
+    }
+
+    .panel.open-active>*:first-child {
+      transform: translateY(0);
+    }
+
+    .panel>*:last-child {
+      transform: translateY(100%);
+    }
+
+    .panel.open-active>*:last-child {
+      transform: translateY(0);
+    }
+
+    .panel p {
+      text-transform: uppercase;
+      font-family: 'Amatic SC', cursive;
+      text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
+      font-size: 2em;
+    }
+
+    .panel p:nth-child(2) {
+      font-size: 4em;
+    }
+
+    .panel.open {
+      flex: 5;
+      font-size: 40px;
+    }
+  </style>
+
+
+  <div class="panels">
+    <div class="panel panel1">
+      <p>The</p>
+      <p>McLaren </p>
+      <p>P1</p>
+    </div>
+    <div class="panel panel2">
+      <p>Chevrolet</p>
+      <p>Corvette</p>
+      <p>z06</p>
+    </div>
+    <div class="panel panel3">
+      <p>Jaguar</p>
+      <p>F-type</p>
+      <p>R</p>
+    </div>
+    <div class="panel panel4">
+      <p>The</p>
+      <p>Audi </p>
+      <p>R8</p>
+    </div>
+    <div class="panel panel5">
+      <p>The</p>
+      <p>Porsche</p>
+      <p>911</p>
+    </div>
+  </div>
+
+  <script>
+
+    const panels = document.querySelectorAll('.panel');
+
+    function toggleOpen() {
+      console.log('Hello');
+      this.classList.toggle('open');
+    }
+
+    function toggleActive(e) {  //Meustra la trancion flex
+      console.log(e.propertyName);
+      if (e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+    }
+
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen)); //Abre el cuadro  cuando es clickeado
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive)); //Animacion del texto
+
+  </script>
+
+
+
+</body>
+
+</html>
